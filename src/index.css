@@ -1,0 +1,13 @@
+/* Google Fonts Settings here */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+/* Google Fonts Settings here */
+
+body {
+    font-family: Inter;
+}
+
+/* Tailwind CSS settings here */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* Tailwind CSS settings here */
