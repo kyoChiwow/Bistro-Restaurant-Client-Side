@@ -8,7 +8,8 @@ import {
 } from "react-simple-captcha";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
-import { useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const Login = () => {
   const captchaRef = useRef();
@@ -18,7 +19,6 @@ const Login = () => {
   const location = useLocation();
 
   const from = location.state?.from?.pathname || "/";
-
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -39,29 +39,28 @@ const Login = () => {
     const password = e.target.loginPassword.value;
 
     // Calling the signin function here
-    signInEmail (email, password)
-    .then(res => {
-       const user = res.user;
-       console.log(user);
-       Swal.fire({
+    signInEmail(email, password).then((res) => {
+      const user = res.user;
+      console.log(user);
+      Swal.fire({
         title: "Logged in successfully",
         showClass: {
           popup: `
             animate__animated
             animate__fadeInUp
             animate__faster
-          `
+          `,
         },
         hideClass: {
           popup: `
             animate__animated
             animate__fadeOutDown
             animate__faster
-          `
+          `,
         },
       });
       navigate(from, { replace: true });
-    })
+    });
     // Calling the signin function here
   };
 
@@ -119,7 +118,7 @@ const Login = () => {
                 required
               />
               <button
-              type="button"
+                type="button"
                 onClick={handleValidateCaptcha}
                 className="btn bg-[#D1A054B3] btn-xs mt-4 text-white"
               >
@@ -127,9 +126,31 @@ const Login = () => {
               </button>
             </div>
             <div className="form-control mt-6">
-              <button disabled={disabled} className="btn bg-[#D1A054B3] text-white">Sign In</button>
+              <button
+                disabled={disabled}
+                className="btn bg-[#D1A054B3] text-white"
+              >
+                Sign In
+              </button>
             </div>
           </form>
+          
+          {/* Social Login div here */}
+          <div className="flex justify-center items-center mb-4 w-full ">
+            <SocialLogin></SocialLogin>
+          </div>
+          {/* Social Login div here */}
+
+          {/* Register redirect here */}
+          <div className="py-2 text-center">
+            <NavLink to={"/register"}>
+              <p>
+                Do not have an account?{" "}
+                <span className="text-green-700 font-bold">Register Here!</span>
+              </p>
+            </NavLink>
+          </div>
+          {/* Register redirect here */}
         </div>
       </div>
     </div>

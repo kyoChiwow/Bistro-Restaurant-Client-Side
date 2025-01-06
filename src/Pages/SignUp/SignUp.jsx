@@ -5,7 +5,9 @@ import { Helmet } from "react-helmet-async";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const SignUp = () => {
   const {
@@ -16,28 +18,38 @@ const SignUp = () => {
   } = useForm();
   const { signUpEmail, updateUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
   const onSubmit = (data) => {
     console.log(data);
-    signUpEmail (data.registerEmail, data.registerPassword)
-    .then(res => {
-        const loggedUser = res.user;
-        console.log(loggedUser);
-        updateUserProfile(data.registerName, data.registerPhoto)
+    signUpEmail(data.registerEmail, data.registerPassword).then((res) => {
+      const loggedUser = res.user;
+      console.log(loggedUser);
+      updateUserProfile(data.registerName, data.registerPhoto)
         .then(() => {
-            console.log('user profile info updated');
-            reset();
-            Swal.fire({
+          // Create user entry in the database
+          const userInfo = {
+            name: data.registerName,
+            email: data.registerEmail,
+          };
+          axiosPublic.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              console.log("user added to the database");
+              reset();
+              Swal.fire({
                 title: "Good job!",
                 text: "You have created your profile!",
-                icon: "success"
+                icon: "success",
               });
+              navigate("/");
+            }
+          });
         })
         .catch((err) => {
-            console.log(err.message);
-        })
-        navigate("/");
-    })
+          console.log(err.message);
+        });
+      navigate("/");
+    });
   };
 
   return (
@@ -160,6 +172,23 @@ const SignUp = () => {
                 </button>
               </div>
             </form>
+
+            {/* Social Login div here */}
+            <div className="flex justify-center items-center mb-4 w-full">
+              <SocialLogin></SocialLogin>
+            </div>
+            {/* Social Login div here */}
+
+            {/* Login redirect here */}
+            <div className="py-2 text-center">
+              <NavLink to={"/login"}>
+                <p>
+                  Do not have an account?{" "}
+                  <span className="text-green-700 font-bold">Login Here!</span>
+                </p>
+              </NavLink>
+            </div>
+            {/* Login redirect here */}
           </div>
         </div>
       </div>
