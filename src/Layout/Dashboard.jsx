@@ -152,7 +152,7 @@ const Dashboard = () => {
       {/* Drawer div here */}
 
       {/* Outlet div here */}
-      <div className="flex-1 bg-base-300">
+      <div className="flex-1 bg-white max-w-[80%] mx-auto">
         <Outlet></Outlet>
       </div>
       {/* Outlet div here */}

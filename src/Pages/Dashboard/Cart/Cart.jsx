@@ -45,7 +45,7 @@ const Cart = () => {
       {/* Header info div here */}
 
       {/* My Cart div here */}
-      <div className="mt-20 max-w-[90%] xl:max-w-[80%] bg-white mx-auto border p-[50px]">
+      <div className="mt-20 max-w-[90%] xl:max-w-[80%] bg-base-300 mx-auto border p-[50px]">
         {/* Cart info div */}
         <div className="flex justify-between items-center">
           <p className="uppercase font-[Cinzel] font-bold text-[32px]">
