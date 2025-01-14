@@ -3,6 +3,7 @@ import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import useCart from "../../../hooks/useCart";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { NavLink } from "react-router-dom";
 
 const Cart = () => {
   const [cart, refetch] = useCart();
@@ -54,9 +55,22 @@ const Cart = () => {
           <p className="uppercase font-[Cinzel] font-bold text-[32px]">
             Total Price: ${totalPrice}
           </p>
-          <button className="btn uppercase bg-[#D1A054] text-white font-bold text-xl font-[Cinzel]">
-            Pay
-          </button>
+          {cart.length ? (
+            <NavLink to={"/dashboard/payment"}>
+              <button
+                className="btn uppercase bg-[#D1A054] text-white font-bold text-xl font-[Cinzel]"
+              >
+                Pay
+              </button>
+            </NavLink>
+          ) : (
+            <button
+              disabled
+              className="btn uppercase bg-[#D1A054] text-white font-bold text-xl font-[Cinzel]"
+            >
+              Pay
+            </button>
+          )}
         </div>
         {/* Cart info div */}
 

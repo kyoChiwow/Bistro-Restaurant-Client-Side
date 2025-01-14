@@ -35,19 +35,20 @@ const AuthProvider = ({ children }) => {
         .then((res) => {
           if(res.data.token) {
             localStorage.setItem('access-token', res.data.token)
+            setLoading(false);
           }
         })
       }
       else {
         // remove token (if token is stored in the client-side)
         localStorage.removeItem('access-token');
+        setLoading(false);
       }
-      setLoading(false);
     });
     return () => {
       return unsubscribe();
     };
-  }, []);
+  }, [axiosPublic]);
   // Observer settings here
 
   // SignUp user settings here

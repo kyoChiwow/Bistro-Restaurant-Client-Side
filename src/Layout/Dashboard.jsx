@@ -15,9 +15,11 @@ import { TbMessageStar } from "react-icons/tb";
 import { TfiMenuAlt } from "react-icons/tfi";
 import { NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../hooks/useAdmin";
+import useCart from "../hooks/useCart";
 
 const Dashboard = () => {
   const [isAdmin] = useAdmin();
+  const [cart] = useCart();
 
   return (
     <div className="flex">
@@ -73,7 +75,7 @@ const Dashboard = () => {
             ) : (
               <>
                 <li>
-                  <NavLink to={"/dashboard/home"}>
+                  <NavLink to={"/dashboard/userHome"}>
                     {" "}
                     <FaHome></FaHome> USER HOME
                   </NavLink>
@@ -85,7 +87,7 @@ const Dashboard = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to={"/dashboard/history"}>
+                  <NavLink to={"/dashboard/paymentHistory"}>
                     {" "}
                     <FaWallet></FaWallet> PAYMENT HISTORY
                   </NavLink>
@@ -93,7 +95,7 @@ const Dashboard = () => {
                 <li>
                   <NavLink to={"/dashboard/cart"}>
                     {" "}
-                    <FaShoppingCart></FaShoppingCart> MY CART
+                    <FaShoppingCart></FaShoppingCart> MY CART ({cart.length})
                   </NavLink>
                 </li>
                 <li>
